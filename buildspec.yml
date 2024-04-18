@@ -22,8 +22,9 @@ phases:
     commands:
       - mvn compile
       - mvn test
-      - sonar-scanner -Dsonar.login=$LOGIN -Dsonar.host.url=$HOST -Dsonar.organization=$Organization -Dsonar.projectKey=$Project -Dsonar.java.binaries=.
-      - sleep 5
+      - echo "Current PATH: $PATH"
+      - ls -l sonar-scanner-cli-5.0.1.3006-linux/bin/sonar-scanner
+      - sonar-scanner-cli-5.0.1.3006-linux/bin/sonar-scanner -Dsonar.login="$LOGIN" -Dsonar.host.url="$HOST" -Dsonar.organization="$Organization" -Dsonar.projectKey="$Project" -Dsonar.sources=.
       - mvn package
 artifacts:
   files:
