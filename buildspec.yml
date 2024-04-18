@@ -1,7 +1,7 @@
 version: 0.2
 phases:
   install:
-    runtimeVesrion: openjdk-17-jdk
+    runtimeVersion: openjdk-17-jdk
   pre_build:
     commands:
       - apt-get update -y
