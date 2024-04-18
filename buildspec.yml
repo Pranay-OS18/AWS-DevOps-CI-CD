@@ -22,7 +22,7 @@ phases:
       - unzip ./sonar-scanner-cli-5.0.1.3006-linux.zip
       - ls $pwd
       - export PATH=$PATH:./sonar-scanner-cli-5.0.1.3006-linux/bin/
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/app-jvm
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com
   build:
     commands:
       - mvn compile
