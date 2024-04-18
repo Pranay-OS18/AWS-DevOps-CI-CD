@@ -1,17 +1,29 @@
 version: 0.2
+env:
+  secrets-manager:
+    LOGIN: Buils-Sec:Sonar-Token
+    HOST: Buils-Sec:HOST
+    Organization: Buils-Sec:Organization
+    Project: Buils-Sec:Project
 phases:
   install:
     runtimeVersion: openjdk-17-jdk
   pre_build:
     commands:
       - apt-get update -y
+      - apt-get install unzip -y
       - wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
       - tar xzvf apache-maven-3.9.6-bin.tar.gz
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+      - unzip ./sonar-scanner-cli-5.0.1.3006-linux.zip
+      - export PATH=$PATH:./sonar-scanner-cli-5.0.1.3006-linux/bin/
       - ln -s apache-maven-3.9.4 maven
   build:
     commands:
       - mvn compile
       - mvn test
+      - sonar-scanner -Dsonar.login=$LOGIN -Dsonar.host.url=$HOST -Dsonar.organization=$Organization -Dsonar.projectKey=$Project
+      - sleep 10
       - mvn package
 artifacts:
   files:
