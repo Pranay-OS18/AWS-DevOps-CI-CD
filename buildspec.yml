@@ -5,6 +5,7 @@ env:
     HOST: Buils-Sec:HOST
     Organization: Buils-Sec:Organization
     Project: Buils-Sec:Project
+    AWS_ACCOUNT_ID: Buils-Sec:AccID
 phases:
   install:
     runtimeVersion: openjdk-17-jdk
@@ -21,6 +22,7 @@ phases:
       - unzip ./sonar-scanner-cli-5.0.1.3006-linux.zip
       - ls $pwd
       - export PATH=$PATH:./sonar-scanner-cli-5.0.1.3006-linux/bin/
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/app-jvm
   build:
     commands:
       - mvn compile
@@ -30,6 +32,8 @@ phases:
       - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
       - cat result.json
       - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
+      - docker build . -t app-image:${CODEBUILD_BUILD_ID}
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/app-jvm:${CODEBUILD_BUILD_ID}
 artifacts:
   files:
      - target/**/*.jar
