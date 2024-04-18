@@ -16,13 +16,14 @@ phases:
       - tar xzvf apache-maven-3.9.6-bin.tar.gz
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
       - unzip ./sonar-scanner-cli-5.0.1.3006-linux.zip
-      - export PATH=$PATH:./sonar-scanner-cli-5.0.1.3006-linux/bin/
       - ln -s apache-maven-3.9.4 maven
+      - ls -l sonar-scanner-cli-5.0.1.3006-linux/
+      - ls -l sonar-scanner-cli-5.0.1.3006-linux/bin/
+      - ls -l sonar-scanner-cli-5.0.1.3006-linux/bin/sonar-scanner
   build:
     commands:
       - mvn compile
       - mvn test
-      - ls -l sonar-scanner-cli-5.0.1.3006-linux/bin/sonar-scanner
       - sonar-scanner-cli-5.0.1.3006-linux/bin/sonar-scanner -Dsonar.login="$LOGIN" -Dsonar.host.url="$HOST" -Dsonar.organization="$Organization" -Dsonar.projectKey="$Project" -Dsonar.sources=.
       - mvn package
 artifacts:
