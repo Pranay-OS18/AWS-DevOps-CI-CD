@@ -1,7 +1,7 @@
 version: 0.2
 phases:
   install:
-    runtimeVesrion: corretto17
+    runtimeVesrion: openjdk-17-jdk
   pre_build:
     commands:
       - apt-get update -y
