@@ -1,6 +1,8 @@
 version: 0.2
 env:
   secrets-manager:
+    ACCESSKEY: Buils-Sec:AccessKey
+    SECRETKEY: Buils-Sec:SecretKey
     LOGIN: Buils-Sec:Sonar-Token
     HOST: Buils-Sec:HOST
     Organization: Buils-Sec:Organization
