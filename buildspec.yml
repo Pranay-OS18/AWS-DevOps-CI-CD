@@ -41,4 +41,4 @@ phases:
 artifacts:
   files:
      - target/**/*.jar
-  name: "artifact-${CODEBUILD_BUILD_ID}.jar"
+  name: "artifact-${CODEBUILD_BUILD_NUMBER}.jar"
